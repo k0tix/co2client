@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import {  Grid } from 'semantic-ui-react'
 
 import SiteHeader from './components/SiteHeader'
-import SearchBar from './components/SearchBar'
+import SearchBar from './containers/SearchBar'
+import EmissionChart from './components/EmissionChart'
+import Footer from './components/Footer';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <div /*style={{backgroundColor: '#2e3238'}}*/>
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Row>
             <Grid.Column style={{ maxWidth: 450 }}>
@@ -21,6 +23,7 @@ class App extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <Footer></Footer>
       </div>
     )
 
