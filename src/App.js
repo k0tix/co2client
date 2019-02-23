@@ -6,12 +6,20 @@ import SiteHeader from './components/SiteHeader'
 import SearchBar from './containers/SearchBar'
 import EmissionChart from './components/EmissionChart'
 import Footer from './components/Footer';
+import { connect } from 'react-redux';
+import { resultInitialization } from './reducers/searchReducer'
+import MapSelector from './components/MapSelector';
 
 class App extends Component {
+
+  componentDidMount = async () => {
+    this.props.resultInitialization()
+  }
+
   render() {
     return (
       <div /*style={{backgroundColor: '#2e3238'}}*/>
-        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+        <Grid centered textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Row>
             <Grid.Column style={{ maxWidth: 450 }}>
               <SiteHeader title={'CO2-EMISSIONS'}></SiteHeader>
@@ -22,6 +30,10 @@ class App extends Component {
               <SearchBar></SearchBar>
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row>
+            {//<MapSelector></MapSelector>
+            }
+          </Grid.Row>
         </Grid>
         <Footer></Footer>
       </div>
@@ -30,4 +42,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  null,
+  { resultInitialization }
+)(App)
