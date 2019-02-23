@@ -1,20 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {searchCountry} from '../reducers/countryReducer'
-import { togglePerCapita, updateSearchText } from '../actions'
-import { Item, Icon, Form, Checkbox, Grid, Divider, Label, Segment, Search } from 'semantic-ui-react'
+import { togglePerCapita, updateSearchText } from '../reducers/searchReducer'
+import { Item, Icon, Form, Checkbox, Grid, Divider, Label, Segment, Search, Container } from 'semantic-ui-react'
 
 import EmissionChart from '../components/EmissionChart'
 
 import data from '../test'
-import {countryNames} from '../utils/countryList'
 
 class SearchBar extends React.Component {
 
     handleSearchTextChange = (event) => {
         event.preventDefault()
         this.props.updateSearchText(event.target.value)
-        this.props.searchCountry(event.target.value)
     }
 
     handleSearch = () => {
@@ -23,11 +21,10 @@ class SearchBar extends React.Component {
 
     togglePerCapita = () => {
         this.props.togglePerCapita()
-        console.log(this.props.country.name)
     }
 
     processdata = (values) => {
-        var year = 1960
+        /*var year = 1960
         var emissions = new Array(['Year', 'Emissions'])
         values.forEach(value => {
             emissions.push([`${year}`, value])
@@ -35,7 +32,17 @@ class SearchBar extends React.Component {
         }
         )
 
+        return emissions*/
+        var emissions = new Array(['Year', 'Emission'])
+        values.forEach(value => {
+            emissions.push([value.year, parseInt(value.value)])
+        })
         return emissions
+    }
+
+    handleResultSelect = (event, { result }) => {
+        this.props.updateSearchText(result.name)
+        this.props.searchCountry(result.code)
     }
 
     render() {
@@ -51,56 +58,67 @@ class SearchBar extends React.Component {
                                 placeholder='country name...'
                                 value={this.props.searchText}
                                 onSearchChange={this.handleSearchTextChange}
-                                onResultSelect={(event) => console.log(event.currentTarget)}
+                                onResultSelect={this.handleResultSelect}
                                 resultRenderer={renderResult}
-                                results={
-                                    [
-                                        {
-                                            title: 'moi'
-                                        }, {
-                                            title: 'hello'
-                                        }, {
-                                            title: 'noob'
-                                        }
-                                    ]
-                                }/>
+                                selectFirstResult={true}
+                                minCharacters={2}
+                                results={this.props.filteredResults}
+                            />
                         </Form.Field>
     
                         <Form.Group inline style={{ margin: '1em' }}>
                             <Form.Field>
-                                <Checkbox toggle label='per capita' onChange={this.togglePerCapita}/>
+                                <Checkbox toggle label='per capita' onChange={this.togglePerCapita} onClick={() => console.log(this.props)}/>
                             </Form.Field>
                         </Form.Group>
                         </Segment>
                         
                     </Form>
     
-                    <Divider horizontal inverted>OR</Divider>
+                    <Divider horizontal>OR</Divider>
                     <Segment textAlign='center'>
                         <Label color='pink' size='big'>Choose a country from a map</Label>
                     </Segment>
 
-                    <EmissionChart name={data.country} id={data.code} values={this.processdata(data.values)}>
-                        
-                    </EmissionChart>
-                    
+            <Container fluid>
+
+            
+                    {this.props.country.emissions === undefined ? null : 
+                        <EmissionChart name={this.props.country.name} id={this.props.country.code} values={this.processdata(this.props.country.emissions)}>
+                        </EmissionChart>
+
+                    }
+               </Container>                             
                 </Grid.Column>
 
                     
-
             </Grid>
         )
     }
 }
 
-const renderResult = ({title}) => (
-    <Item>{title}</Item>
+const renderResult = ({name}) => (
+    <Item key={name}>{name}</Item>
 )
+
+const filterResults = (results, text) => {
+    return results.filter(result => result.name.toLowerCase().includes(text.toLowerCase())).map(value => {
+        var newValue = {
+            ...value,
+            title: value.name,
+            key: value.code
+        }
+
+        return newValue
+    })
+}
+
 
 const mapStateToProps = (state) => {
     return {
-        searchText: state.searchText,
-        perCapita: state.perCapita,
+        searchText: state.search.searchText,
+        perCapita: state.search.perCapita,
+        filteredResults: filterResults(state.search.results, state.search.searchText),
         country: state.country
     }
 }

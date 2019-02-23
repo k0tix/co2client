@@ -1,8 +1,11 @@
-import { UPDATE_SEARCHTEXT, TOGGLE_PERCAPITA } from '../actions'
+import { UPDATE_SEARCHTEXT, TOGGLE_PERCAPITA, INIT_SEARCH_RESULTS } from '../actions'
+
+import countryService from '../services/countries'
 
 const initialState = {
     searchText: '',
-    perCapita: false
+    perCapita: false,
+    results: []
 }
 
 const searchReducer = (state = initialState, action) => {
@@ -11,8 +14,37 @@ const searchReducer = (state = initialState, action) => {
             return Object.assign({}, state, {searchText: action.text})
         case TOGGLE_PERCAPITA:
             return {...state, perCapita: !state.perCapita}
+        case INIT_SEARCH_RESULTS:
+            return {...state, results: action.results}
         default: 
             return state
+    }
+}
+
+export const resultInitialization = () => {
+    return async(dispatch) => {
+        const results = await countryService.getAll()
+        dispatch({
+            type: INIT_SEARCH_RESULTS,
+            results
+        })
+    }
+}
+
+export const updateSearchText = (text) => {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_SEARCHTEXT,
+            text
+        })
+    }
+}
+
+export const togglePerCapita = () => {
+    return (dispatch) => {
+        dispatch({
+            type: TOGGLE_PERCAPITA
+        })
     }
 }
 

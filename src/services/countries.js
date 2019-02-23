@@ -8,7 +8,6 @@ const getAll = async () => {
 
 const getWithCode = async (code) => {
     const response = await axios.get(`${baseUrl}/${code}`)
-    console.log(code)
     return response.data
 }
 
