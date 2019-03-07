@@ -1,14 +1,24 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/api/country'
+const baseUrl = 'api/country'
 
 const getAll = async () => {
     const response = await axios.get(baseUrl)
     return response.data
 }
 
-const getWithCode = async (code) => {
-    const response = await axios.get(`${baseUrl}/${code}`)
+const getWithHighestPopulation = async () => {
+    const response = await axios.get(`${baseUrl}/highestPopulation`)
     return response.data
 }
 
-export default { getAll, getWithCode }
+const getWithHighestPercapita = async () => {
+    const response = await axios.get(`${baseUrl}/highestEmissionpercapita`)
+    return response.data
+}
+
+const getWithCode = async (code) => {
+    const response = await axios.get(`${baseUrl}/code/${code}`)
+    return response.data
+}
+
+export default { getAll, getWithCode, getWithHighestPopulation, getWithHighestPercapita }
