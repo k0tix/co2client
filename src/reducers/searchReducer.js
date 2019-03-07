@@ -5,7 +5,9 @@ import countryService from '../services/countries'
 const initialState = {
     searchText: '',
     perCapita: false,
-    results: []
+    results: [],
+    byPopulation: [],
+    byPerCapita: []
 }
 
 const searchReducer = (state = initialState, action) => {
@@ -15,7 +17,7 @@ const searchReducer = (state = initialState, action) => {
         case TOGGLE_PERCAPITA:
             return {...state, perCapita: !state.perCapita}
         case INIT_SEARCH_RESULTS:
-            return {...state, results: action.results}
+            return {...state, results: action.results, byPopulation: action.byPopulation, byPerCapita: action.byPerCapita}
         default: 
             return state
     }
@@ -24,9 +26,13 @@ const searchReducer = (state = initialState, action) => {
 export const resultInitialization = () => {
     return async(dispatch) => {
         const results = await countryService.getAll()
+        const byPopulation = await countryService.getWithHighestPopulation()
+        const byPerCapita = await countryService.getWithHighestPercapita()
         dispatch({
             type: INIT_SEARCH_RESULTS,
-            results
+            results,
+            byPopulation,
+            byPerCapita
         })
     }
 }
