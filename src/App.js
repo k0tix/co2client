@@ -3,13 +3,10 @@ import React, { Component } from 'react';
 import {  Grid, Container } from 'semantic-ui-react'
 
 import SiteHeader from './components/SiteHeader'
-import SearchBar from './containers/SearchBar'
 import EmissionChart from './containers/EmissionChart'
 import Footer from './components/Footer';
-import CountryList from './containers/CountryList'
 import { connect } from 'react-redux';
 import { resultInitialization } from './reducers/searchReducer'
-import MapSelector from './components/MapSelector';
 import CountrySelector from './containers/CountrySelector';
 
 class App extends Component {
