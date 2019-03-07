@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import { connect } from 'react-redux';
 import { resultInitialization } from './reducers/searchReducer'
 import CountrySelector from './containers/CountrySelector';
+import CountryBar from './containers/CountryBar';
 
 class App extends Component {
 
@@ -26,16 +27,16 @@ class App extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column style={{maxWidth: 600}}>
+              <CountryBar />
               <CountrySelector></CountrySelector>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column style={{maxWidth: '600px'}}>
+            <Grid.Column style={{maxWidth: '800px'}}>
               <Container >
                 <EmissionChart></EmissionChart>
               </Container>
             </Grid.Column>
-            
           </Grid.Row>
         </Grid>
         <Footer></Footer>

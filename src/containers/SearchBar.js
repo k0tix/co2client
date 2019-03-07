@@ -18,6 +18,7 @@ class SearchBar extends React.Component {
     handleResultSelect = (event, { result }) => {
         this.props.updateSearchText(result.name)
         this.props.searchCountry(result.code)
+        this.props.updateSearchText('')
     }
 
     render() {
