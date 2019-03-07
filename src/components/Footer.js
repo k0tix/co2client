@@ -1,10 +1,9 @@
 import React from 'react'
-import { Segment, Container, Grid, Icon } from 'semantic-ui-react';
+import { Segment, Grid, Icon } from 'semantic-ui-react';
 
 const Footer = () => {
-    const date = new Date()
     return (
-        <Segment inverted vertical style={{padding: '5em 0em', marginTop: '24em'}}>
+        <Segment inverted vertical style={{padding: '5em 0em', marginTop: '26em'}}>
             <Grid centered columns={2}>
                 <Grid.Column width={3}>
                     <Grid.Row>

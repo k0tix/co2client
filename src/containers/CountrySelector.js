@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tab, Checkbox, Form } from 'semantic-ui-react'
+import { Tab, Checkbox } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 import { togglePerCapita } from '../reducers/searchReducer'
@@ -18,7 +18,7 @@ const CountrySelector = (props) => (
 )
 
 const PerCapitaToggle = ({props}) => (
-                <Checkbox toggle label='per capita' onChange={() => props.togglePerCapita()} />
+    <Checkbox toggle label='per capita' onChange={() => props.togglePerCapita()} />
 )
 
 

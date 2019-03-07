@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Segment, Header, Button, List, Accordion, Icon, Label, Popup } from 'semantic-ui-react'
+import { Segment, Header, Button, List, Icon, Popup } from 'semantic-ui-react'
 import { searchCountry } from '../reducers/countryReducer'
 import { connect } from 'react-redux'
 
