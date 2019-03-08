@@ -2,7 +2,7 @@
 
 This is the frontend for an application that allows viewing emission data.
 
-Workig demo can be found [here](https://co2emissione.herokuapp.com/). (Works on mobile and desktop)
+Working demo can be found [here](https://co2emissione.herokuapp.com/). (Works on mobile and desktop)
 
 [The full assignment in Finnish.](https://www.reaktor.com/ennakkotehtava-ohjelmistokehittaja/)
 
